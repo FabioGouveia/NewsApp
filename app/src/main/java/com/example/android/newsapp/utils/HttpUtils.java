@@ -1,5 +1,6 @@
 package com.example.android.newsapp.utils;
 
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -21,26 +22,37 @@ final class HttpUtils {
 
     private final static String API_URL = BuildConfig.API_URL;
     private final static String API_KEY = BuildConfig.API_KEY;
+    private final static String API_SEARCH_PATH = "search";
     private final static String API_RESPONSE_FORMAT = "json";
     private final static String API_QUERY_TERM = "android";
     private final static String API_SHOW_TAGS = "contributor";
     private final static String API_ORDER_BY = "newest";
 
     @Nullable
-    static String requestNews(int page){
+    static String requestNews() {
 
         String response = null;
 
         try{
-            response = executeRequest(createQuery(page));
+            response = executeRequest(createQuery());
         }catch (IOException e){
             Log.e(LOG_TAG, "Error parsing http request", e);
         }
         return response;
     }
 
-    private static String createQuery(int page){
-        return API_URL + "search?q=" + API_QUERY_TERM + "&format=" + API_RESPONSE_FORMAT + "&show-tags=" + API_SHOW_TAGS + "&order-by=" + API_ORDER_BY + "&page=" + page + "&api-key=" + API_KEY;
+    private static String createQuery() {
+        Uri baseUri = Uri.parse(API_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendPath(API_SEARCH_PATH);
+        uriBuilder.appendQueryParameter("q", API_QUERY_TERM);
+        uriBuilder.appendQueryParameter("format", API_RESPONSE_FORMAT);
+        uriBuilder.appendQueryParameter("show-tags", API_SHOW_TAGS);
+        uriBuilder.appendQueryParameter("order-by", API_ORDER_BY);
+        uriBuilder.appendQueryParameter("api-key", API_KEY);
+
+        return uriBuilder.toString();
     }
 
     private static String executeRequest(String query) throws IOException {
