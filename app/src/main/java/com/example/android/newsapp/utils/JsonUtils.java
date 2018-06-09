@@ -81,6 +81,6 @@ final class JsonUtils {
             Log.e(LOG_TAG, "Error parsing publication date", e);
         }
 
-        return new SimpleDateFormat("MM/dd/yyyy - HH:mm", Locale.getDefault()).format(date);
+        return new SimpleDateFormat("MMMM dd, yyyy", Locale.getDefault()).format(date);
     }
 }
