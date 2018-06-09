@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    style="@style/LargeRootView">
+
+    <ProgressBar
+        android:id="@+id/news_list_progress_bar"
+        android:layout_centerInParent="true"
+        style="@style/NewsSearchProgressBar" />
+
+    <ScrollView
+        android:id="@+id/news_list_scroll_view"
+        style="@style/LargeRootView">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_list"
+            style="@style/RecyclerView" />
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/empty_view_text_view"
+        style="@style/NewsSearchEmptyView" />
+
+</RelativeLayout>
