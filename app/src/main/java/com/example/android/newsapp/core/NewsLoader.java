@@ -10,11 +10,8 @@ import java.util.List;
 
 public class NewsLoader extends AsyncTaskLoader<List<NewsItem>>{
 
-    private int pageNumber;
-
-    public NewsLoader(Context context, int pageNumber){
+    public NewsLoader(Context context) {
         super(context);
-        this.pageNumber = pageNumber;
     }
 
     @Override
@@ -24,6 +21,6 @@ public class NewsLoader extends AsyncTaskLoader<List<NewsItem>>{
 
     @Override
     public List<NewsItem> loadInBackground() {
-        return QueryUtils.getNews(pageNumber);
+        return QueryUtils.getNews();
     }
 }
