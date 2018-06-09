@@ -6,8 +6,8 @@ import android.content.Loader;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -69,7 +69,7 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     public Loader<List<NewsItem>> onCreateLoader(int id, Bundle args) {
         progressBar.setVisibility(View.VISIBLE);
         newsListScrollView.setVisibility(View.INVISIBLE);
-        return new NewsLoader(NewsListActivity.this, args.getInt(NEWS_PAGE_NUMBER_KEY));
+        return new NewsLoader(NewsListActivity.this);
     }
 
     @Override
