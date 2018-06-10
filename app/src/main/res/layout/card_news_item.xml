@@ -11,11 +11,11 @@
         android:padding="@dimen/dimen_s">
 
         <TextView
-            android:id="@+id/news_item_section"
+            android:id="@+id/news_item_section_text_view"
             style="@style/NewsItemSection" />
 
         <TextView
-            android:id="@+id/news_item_title"
+            android:id="@+id/news_item_title_text_view"
             style="@style/NewsItemTitle" />
 
         <View
@@ -23,11 +23,11 @@
             style="@style/NewsItemSeparator" />
 
         <TextView
-            android:id="@+id/news_item_author"
+            android:id="@+id/news_item_author_text_view"
             style="@style/NewsItemPostInfo.Author" />
 
         <TextView
-            android:id="@+id/news_item_date"
+            android:id="@+id/news_item_date_text_view"
             style="@style/NewsItemPostInfo.Date" />
 
     </RelativeLayout>
