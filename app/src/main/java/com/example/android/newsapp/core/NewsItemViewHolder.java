@@ -16,9 +16,9 @@ class NewsItemViewHolder extends RecyclerView.ViewHolder {
     NewsItemViewHolder(View itemView) {
         super(itemView);
 
-        sectionTextView = itemView.findViewById(R.id.news_item_section);
-        titleTextView = itemView.findViewById(R.id.news_item_title);
-        authorTextView = itemView.findViewById(R.id.news_item_author);
-        dateTextView = itemView.findViewById(R.id.news_item_date);
+        sectionTextView = itemView.findViewById(R.id.news_item_section_text_view);
+        titleTextView = itemView.findViewById(R.id.news_item_title_text_view);
+        authorTextView = itemView.findViewById(R.id.news_item_author_text_view);
+        dateTextView = itemView.findViewById(R.id.news_item_date_text_view);
     }
 }
