@@ -52,7 +52,7 @@
     <style name="NewsItemTitle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_below">@id/news_item_section</item>
+        <item name="android:layout_below">@id/news_item_section_text_view</item>
         <item name="android:paddingTop">@dimen/dimen_s</item>
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
@@ -65,7 +65,7 @@
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_marginTop">@dimen/dimen_s</item>
         <item name="android:layout_marginBottom">@dimen/dimen_s</item>
-        <item name="android:layout_below">@id/news_item_title</item>
+        <item name="android:layout_below">@id/news_item_title_text_view</item>
     </style>
 
     <style name="NewsItemPostInfo">
