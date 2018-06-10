@@ -4,12 +4,11 @@
 
     <ProgressBar
         android:id="@+id/news_list_progress_bar"
-        android:layout_centerInParent="true"
         style="@style/NewsSearchProgressBar" />
 
     <ScrollView
         android:id="@+id/news_list_scroll_view"
-        style="@style/LargeRootView">
+        style="@style/RecyclerView">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/news_list"
