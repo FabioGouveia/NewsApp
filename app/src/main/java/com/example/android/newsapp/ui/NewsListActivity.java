@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsItem>> {
+
+    private static final String LOG_TAG = NewsListActivity.class.getSimpleName();
 
     private NewsListAdapter newsListAdapter;
     private ConnectivityManager connManager;
@@ -72,16 +75,19 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoadFinished(Loader<List<NewsItem>> loader, List<NewsItem> newsList) {
 
-        if(newsList.isEmpty()){
-            progressBar.setVisibility(View.GONE);
-            emptyView.setText(getString(R.string.no_online_data_available));
-            emptyView.setVisibility(View.VISIBLE);
-        }else{
-            progressBar.setVisibility(View.GONE);
-            emptyView.setVisibility(View.GONE);
-            newsListScrollView.setVisibility(View.VISIBLE);
+        try {
+            if (newsList.isEmpty()) {
+                setNoDataAvailableLayout();
+            } else {
+                progressBar.setVisibility(View.GONE);
+                emptyView.setVisibility(View.GONE);
+                newsListScrollView.setVisibility(View.VISIBLE);
 
-            newsListAdapter.setNews(newsList);
+                newsListAdapter.setNews(newsList);
+            }
+        } catch (NullPointerException e) {
+            setNoDataAvailableLayout();
+            Log.e(LOG_TAG, "Error while getting the news list: ", e);
         }
     }
 
@@ -108,5 +114,11 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
             emptyView.setText(getString(R.string.no_internet_connection));
             emptyView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setNoDataAvailableLayout() {
+        progressBar.setVisibility(View.GONE);
+        emptyView.setText(getString(R.string.no_online_data_available));
+        emptyView.setVisibility(View.VISIBLE);
     }
 }
