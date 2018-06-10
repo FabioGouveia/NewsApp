@@ -25,9 +25,6 @@ import java.util.List;
 
 public class NewsListActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<NewsItem>> {
 
-    private final static String NEWS_PAGE_NUMBER_KEY = "news_page_number";
-    private static int pageNumber = 1;
-
     private NewsListAdapter newsListAdapter;
     private ConnectivityManager connManager;
     private ProgressBar progressBar;
@@ -103,10 +100,8 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
 
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            Bundle args = new Bundle();
-            args.putInt(NEWS_PAGE_NUMBER_KEY, pageNumber);
 
-            getLoaderManager().initLoader(pageNumber, args, this);
+            getLoaderManager().initLoader(0, null, this);
 
         } else {
             progressBar.setVisibility(View.GONE);
