@@ -1,8 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -30,10 +28,28 @@
         <item name="android:visibility">gone</item>
     </style>
 
-    <style name="NewsSearchEmptyView" parent="AdaptableRootView">
-        <item name="android:layout_centerInParent">true</item>
+    <style name="NewsSearchEmptyImageView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/empty_view_image_view_height</item>
+        <item name="android:visibility">gone</item>
     </style>
 
+    <style name="NewsSearchEmptyView" parent="AdaptableRootView">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_below">@id/empty_view_image_view</item>
+        <item name="android:textAppearance">?android:textAppearanceSmall</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="RetryButton" parent="AdaptableRootView">
+        <item name="android:layout_below">@id/empty_view_text_view</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginTop">@dimen/dimen_m</item>
+        <item name="android:background">@drawable/bgd_accent_selector</item>
+        <item name="android:text">@string/no_internet_connection_button_text</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:visibility">gone</item>
+    </style>
 
     <style name="Card">
         <item name="android:layout_width">match_parent</item>
@@ -42,7 +58,7 @@
     </style>
 
     <style name="NewsItemSection">
-        <item name="android:background">@drawable/bgd_news_item_card_header</item>
+        <item name="android:background">@drawable/bgd_accent_selector</item>
         <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -60,7 +76,7 @@
     </style>
 
     <style name="NewsItemSeparator">
-        <item name="android:background">@color/colorCardBackgroundHeader</item>
+        <item name="android:background">@color/colorAccent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>
         <item name="android:layout_marginTop">@dimen/dimen_s</item>
