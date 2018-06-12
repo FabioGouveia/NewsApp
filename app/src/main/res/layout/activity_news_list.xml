@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/LargeRootView">
 
     <ProgressBar
@@ -16,8 +16,17 @@
 
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/empty_view_image_view"
+        style="@style/NewsSearchEmptyImageView"
+        android:contentDescription="@string/empty_view_image_view_content_description" />
+
     <TextView
         android:id="@+id/empty_view_text_view"
         style="@style/NewsSearchEmptyView" />
+
+    <Button
+        android:id="@+id/retry_network_connection_button"
+        style="@style/RetryButton" />
 
 </RelativeLayout>
