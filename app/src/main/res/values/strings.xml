@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">News App Stage 1</string>
-    <string name="no_internet_connection">No internet connection found!</string>
-    <string name="no_online_data_available">No online data available!</string>
+
+    <string name="no_internet_connection">Oops.\nWe encountered an unexpected problem\n(Network unreachable).</string>
+    <string name="no_online_data_available">We are working hard to bring you news\nPlease come back later and try again</string>
+
+    <string name="empty_view_image_view_content_description">Empty view image</string>
+
+    <string name="no_internet_connection_button_text">Retry</string>
 </resources>
