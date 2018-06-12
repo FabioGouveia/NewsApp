@@ -12,6 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -32,7 +34,9 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     private ConnectivityManager connManager;
     private ProgressBar progressBar;
     private ScrollView newsListScrollView;
+    private ImageView emptyImageView;
     private TextView emptyView;
+    private Button retryConnectionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,9 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
 
         newsListScrollView = findViewById(R.id.news_list_scroll_view);
         progressBar = findViewById(R.id.news_list_progress_bar);
+        emptyImageView = findViewById(R.id.empty_view_image_view);
         emptyView = findViewById(R.id.empty_view_text_view);
+        retryConnectionButton = findViewById(R.id.retry_network_connection_button);
         RecyclerView newsListRecyclerView = findViewById(R.id.news_list);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
@@ -63,6 +69,13 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
         connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
         runNetworkActivity();
+
+        retryConnectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                runNetworkActivity();
+            }
+        });
     }
 
     @Override
@@ -77,7 +90,7 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
 
         try {
             if (newsList.isEmpty()) {
-                setNoDataAvailableLayout();
+                setNoDataAvailableLayout(R.string.no_online_data_available);
             } else {
                 progressBar.setVisibility(View.GONE);
                 emptyView.setVisibility(View.GONE);
@@ -86,7 +99,7 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
                 newsListAdapter.setNews(newsList);
             }
         } catch (NullPointerException e) {
-            setNoDataAvailableLayout();
+            setNoDataAvailableLayout(R.string.no_online_data_available);
             Log.e(LOG_TAG, "Error while getting the news list: ", e);
         }
     }
@@ -106,19 +119,23 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
 
         if (networkInfo != null && networkInfo.isConnected()) {
 
+            emptyImageView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.GONE);
+            retryConnectionButton.setVisibility(View.GONE);
 
             getLoaderManager().initLoader(0, null, this);
 
         } else {
-            progressBar.setVisibility(View.GONE);
-            emptyView.setText(getString(R.string.no_internet_connection));
-            emptyView.setVisibility(View.VISIBLE);
+            setNoDataAvailableLayout(R.string.no_internet_connection);
         }
     }
 
-    private void setNoDataAvailableLayout() {
+    private void setNoDataAvailableLayout(int messageResource) {
         progressBar.setVisibility(View.GONE);
-        emptyView.setText(getString(R.string.no_online_data_available));
+        emptyImageView.setImageResource(R.drawable.no_available_news);
+        emptyImageView.setVisibility(View.VISIBLE);
+        emptyView.setText(getString(messageResource));
         emptyView.setVisibility(View.VISIBLE);
+        retryConnectionButton.setVisibility(View.VISIBLE);
     }
 }
