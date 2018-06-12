@@ -2,8 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorPrimaryText">#FFFFFF</color>
     <color name="colorAccent">#448aff</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorPrimaryText">@color/colorBackground</color>
 
     <color name="colorCardBackgroundHeader">@color/colorAccent</color>
     <color name="colorCardBackground">#E2E2E2</color>
