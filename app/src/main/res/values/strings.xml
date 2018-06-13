@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">News App Stage 1</string>
+    <string name="app_name">News App Stage 2</string>
 
     <string name="no_internet_connection">Oops.\nWe encountered an unexpected problem\n(Network unreachable).</string>
     <string name="no_online_data_available">We are working hard to bring you news\nPlease come back later and try again</string>
@@ -10,4 +10,51 @@
 
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News Settings</string>
+
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+
+    <string name="settings_order_by_relevance_label">Relevance</string>
+    <string name="settings_order_by_relevance_value" translatable="false">relevance</string>
+
+    <string name="settings_search_label">Search</string>
+    <string name="settings_search_key" translatable="false">search</string>
+    <string name="settings_search_default" translatable="false">@string/settings_search_all_value</string>
+
+    <string name="settings_search_all_label">All News</string>
+    <string name="settings_search_all_value" translatable="false">all</string>
+
+    <string name="settings_search_art_and_design_label">Art and Design</string>
+    <string name="settings_search_art_and_design_value" translatable="false">artanddesign</string>
+
+    <string name="settings_search_better_business_label">Better Business</string>
+    <string name="settings_search_better_business_value" translatable="false">better-business</string>
+
+    <string name="settings_search_books_label">Books</string>
+    <string name="settings_search_books_value" translatable="false">books</string>
+
+    <string name="settings_search_education_label">Education</string>
+    <string name="settings_search_education_value" translatable="false">education</string>
+
+    <string name="settings_search_higher_education_network_label">Higher Education Network</string>
+    <string name="settings_search_higher_education_network_value" translatable="false">higher-education-network</string>
+
+    <string name="settings_search_jobs_advice_label">Jobs</string>
+    <string name="settings_search_jobs_advice_value" translatable="false">jobsadvice</string>
+
+    <string name="settings_search_music_label">Music</string>
+    <string name="settings_search_music_value" translatable="false">music</string>
+
+    <string name="settings_search_science_label">Science</string>
+    <string name="settings_search_science_value" translatable="false">science</string>
+
+    <string name="settings_search_technology_label">Technology</string>
+    <string name="settings_search_technology_value" translatable="false">technology</string>
 </resources>
