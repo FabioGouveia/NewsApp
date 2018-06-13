@@ -54,9 +54,9 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
         if (actionBar != null) {
 
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            String subtitle = sharedPreferences.getString(getString(R.string.settings_search_key), getString(R.string.settings_search_default));
 
-            String subtitle = String.format(getString(R.string.news_list_showing_subtitle), sharedPreferences.getString(getString(R.string.settings_search_key), getString(R.string.settings_search_default)));
-            actionBar.setSubtitle(defineSubtitle(subtitle));
+            actionBar.setSubtitle(getString(R.string.news_list_showing_subtitle, defineSubtitle(subtitle).toLowerCase()));
         }
 
         newsListScrollView = findViewById(R.id.news_list_scroll_view);
@@ -155,10 +155,11 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     }
 
     private String defineSubtitle(String subtitle) {
-        if (subtitle.equalsIgnoreCase(getString(R.string.settings_search_art_and_design_value))) {
+
+        if (subtitle.equals(getString(R.string.settings_search_art_and_design_value))) {
             return getString(R.string.settings_search_art_and_design_label);
-        } else if (subtitle.equalsIgnoreCase(getString(R.string.settings_search_jobs_advice_value))) {
-            return subtitle.substring(0, 3);
+        } else if (subtitle.equals(getString(R.string.settings_search_jobs_advice_value))) {
+            return subtitle.substring(0, 4);
         } else {
             return subtitle.replaceAll("-", " ");
         }
