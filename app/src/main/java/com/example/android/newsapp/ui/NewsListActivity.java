@@ -2,6 +2,7 @@ package com.example.android.newsapp.ui;
 
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -73,9 +76,38 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
         retryConnectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                invalidateOptionsMenu();
                 runNetworkActivity();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        MenuItem userPreferenceMenuItem = menu.findItem(R.id.user_preferences_settings);
+
+        if (isConnectedToTheNetwork()) userPreferenceMenuItem.setVisible(true);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.user_preferences_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            overridePendingTransition(R.anim.enter_from_right_animation, R.anim.exit_to_left_animation);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -111,13 +143,7 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
 
     private void runNetworkActivity() {
 
-        NetworkInfo networkInfo = null;
-
-        if (connManager != null) {
-            networkInfo = connManager.getActiveNetworkInfo();
-        }
-
-        if (networkInfo != null && networkInfo.isConnected()) {
+        if (isConnectedToTheNetwork()) {
 
             emptyImageView.setVisibility(View.GONE);
             emptyView.setVisibility(View.GONE);
@@ -128,6 +154,14 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
         } else {
             setNoDataAvailableLayout(R.string.no_internet_connection);
         }
+    }
+
+    private boolean isConnectedToTheNetwork() {
+        NetworkInfo networkInfo = null;
+
+        if (connManager != null) networkInfo = connManager.getActiveNetworkInfo();
+
+        return (networkInfo != null && networkInfo.isConnected());
     }
 
     private void setNoDataAvailableLayout(int messageResource) {
