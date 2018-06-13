@@ -8,6 +8,8 @@
 
     <string name="no_internet_connection_button_text">Retry</string>
 
+    <string name="news_list_showing_subtitle">Showing %1$s</string>
+
     <string name="settings_menu_item">Settings</string>
     <string name="settings_title">News Settings</string>
 
