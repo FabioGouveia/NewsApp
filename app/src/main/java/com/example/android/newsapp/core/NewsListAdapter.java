@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.android.newsapp.R;
 import com.example.android.newsapp.model.NewsItem;
@@ -62,7 +63,14 @@ public class NewsListAdapter extends RecyclerView.Adapter<NewsItemViewHolder> {
             @Override
             public void onClick(View view) {
                 Uri newsItemUri = Uri.parse(newsItem.getUrl());
-                context.startActivity(new Intent(Intent.ACTION_VIEW, newsItemUri));
+
+                Intent browserImplicitIntent = new Intent(Intent.ACTION_VIEW, newsItemUri);
+
+                if (browserImplicitIntent.resolveActivity(context.getPackageManager()) != null) {
+                    context.startActivity(browserImplicitIntent);
+                } else {
+                    Toast.makeText(context, "No intent available to handle this action", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
