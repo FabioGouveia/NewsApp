@@ -4,10 +4,13 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -45,6 +48,16 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+            String subtitle = String.format(getString(R.string.news_list_showing_subtitle), sharedPreferences.getString(getString(R.string.settings_search_key), getString(R.string.settings_search_default)));
+            actionBar.setSubtitle(defineSubtitle(subtitle));
+        }
 
         newsListScrollView = findViewById(R.id.news_list_scroll_view);
         progressBar = findViewById(R.id.news_list_progress_bar);
@@ -139,6 +152,16 @@ public class NewsListActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoaderReset(Loader<List<NewsItem>> loader) {
         newsListAdapter.setNews(new ArrayList<NewsItem>());
+    }
+
+    private String defineSubtitle(String subtitle) {
+        if (subtitle.equalsIgnoreCase(getString(R.string.settings_search_art_and_design_value))) {
+            return getString(R.string.settings_search_art_and_design_label);
+        } else if (subtitle.equalsIgnoreCase(getString(R.string.settings_search_jobs_advice_value))) {
+            return subtitle.substring(0, 3);
+        } else {
+            return subtitle.replaceAll("-", " ");
+        }
     }
 
     private void runNetworkActivity() {
