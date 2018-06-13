@@ -1,10 +1,14 @@
 package com.example.android.newsapp.utils;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.example.android.newsapp.BuildConfig;
+import com.example.android.newsapp.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,32 +28,41 @@ final class HttpUtils {
     private final static String API_KEY = BuildConfig.API_KEY;
     private final static String API_SEARCH_PATH = "search";
     private final static String API_RESPONSE_FORMAT = "json";
-    private final static String API_QUERY_TERM = "android";
     private final static String API_SHOW_TAGS = "contributor";
-    private final static String API_ORDER_BY = "newest";
 
     @Nullable
-    static String requestNews() {
+    static String requestNews(Context context) {
 
         String response = null;
 
         try{
-            response = executeRequest(createQuery());
+            response = executeRequest(createQuery(context));
         }catch (IOException e){
             Log.e(LOG_TAG, "Error parsing http request", e);
         }
         return response;
     }
 
-    private static String createQuery() {
+    private static String createQuery(Context context) {
+
+        String defaultSearchTerm = context.getString(R.string.settings_search_default);
+        String defaultOrderBy = context.getString(R.string.settings_order_by_default);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String apiQueryTerm = sharedPreferences.getString(context.getString(R.string.settings_search_key), defaultSearchTerm);
+        String apiOrderBy = sharedPreferences.getString(context.getString(R.string.settings_order_by_key), defaultOrderBy);
+
         Uri baseUri = Uri.parse(API_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
         uriBuilder.appendPath(API_SEARCH_PATH);
-        uriBuilder.appendQueryParameter("q", API_QUERY_TERM);
+
+        if (!apiQueryTerm.equals(defaultSearchTerm))
+            uriBuilder.appendQueryParameter("q", apiQueryTerm);
+
         uriBuilder.appendQueryParameter("format", API_RESPONSE_FORMAT);
         uriBuilder.appendQueryParameter("show-tags", API_SHOW_TAGS);
-        uriBuilder.appendQueryParameter("order-by", API_ORDER_BY);
+        uriBuilder.appendQueryParameter("order-by", apiOrderBy);
         uriBuilder.appendQueryParameter("api-key", API_KEY);
 
         return uriBuilder.toString();
